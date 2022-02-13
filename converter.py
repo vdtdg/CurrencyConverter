@@ -17,8 +17,10 @@ class Converter:
     @staticmethod
     def get_change_rates() -> dict:
         # If the last pull is older than 12 hours ago
-        if time.time() - Converter.last_pull_timestamp > 3600 * 12:
+        current_time = time.time()
+        if current_time - Converter.last_pull_timestamp > 3600 * 12:
             response = requests.get(
                 f"http://api.exchangeratesapi.io/v1/latest?access_key={Converter.api_key}&symbols=&format=1")
             Converter.rates = response.json()
+            Converter.last_pull_timestamp = current_time
         return Converter.rates

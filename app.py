@@ -28,7 +28,7 @@ def convert():
         return create_error_response("Wrong currency used."), 400
 
     response = {
-        "timestamp": "",
+        "timestamp": time.time(),
         "currency": currency,
         "amount": amount,
         "target_currency": target_currency,
